@@ -115,7 +115,7 @@ bool connected() {
   return true;
 }
 
-double distance(const double zero[4]) {
+double encoderDistanceMm(const double zero[4]) {
   double sum = 0;
   for (int i = 0; i < 4; ++i)
     sum += drive[i]->position(degrees) - zero[i];
@@ -137,7 +137,7 @@ bool runTrial(Trial& result) {
   double traveled = 0;
   while (true) {
     const double yaw = BrainInertial.rotation(degrees) - yawZero;
-    traveled = distance(zero);
+    traveled = encoderDistanceMm(zero);
     if (fabs(yaw) > fabs(result.peakYaw)) result.peakYaw = yaw;
     if (!startCaptured && traveled >= 0.20 * targetMm) {
       result.startYaw = yaw;
@@ -169,7 +169,7 @@ bool runTrial(Trial& result) {
   }
   wait(350, msec);
   result.finalYaw = BrainInertial.rotation(degrees) - yawZero;
-  result.distanceMm = distance(zero);
+  result.distanceMm = encoderDistanceMm(zero);
   for (int i = 0; i < 4; ++i) {
     result.angle[i] = drive[i]->position(degrees) - zero[i];
     result.amps[i] /= samples > 0 ? samples : 1;
