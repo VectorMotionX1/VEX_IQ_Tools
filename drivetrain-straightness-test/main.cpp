@@ -76,11 +76,11 @@ const double wheelTravelMm = 200.0;
 const double motorTurnsPerWheelTurn = 1.0;
 const double targetMm = 1000.0;
 const int speedPct = 60;
-const int ports[] = {1, 3, 2, 6};
+const int ports[] = {3, 5, 9, 11};
 
-motor left1(PORT1, false), left3(PORT3, false);
-motor right2(PORT2, true), right6(PORT6, true);
-motor* const drive[] = {&left1, &left3, &right2, &right6};
+motor left3(PORT3, false), left5(PORT5, false);
+motor right9(PORT9, true), right11(PORT11, true);
+motor* const drive[] = {&left3, &left5, &right9, &right11};
 
 struct Trial {
   double startYaw, cruiseYaw, preStopYaw, finalYaw, peakYaw, distanceMm;
